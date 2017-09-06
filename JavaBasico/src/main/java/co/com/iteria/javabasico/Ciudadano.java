@@ -5,6 +5,7 @@
  */
 package co.com.iteria.javabasico;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,4 +62,10 @@ public class Ciudadano {
         return "Ciudadano{" + "id=" + id + ", nombres=" + nombres + ", apellidos=" + apellidos + ", inmuebles=" + inmuebles + '}';
     }
 
+    public Ciudadano(String id, String nombres, String apellidos, List<Inmueble> inmuebles) {
+        this.id = id;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.inmuebles = new ArrayList<>(inmuebles);
+    }
 }
