@@ -19,7 +19,7 @@ public abstract class Inmueble {
     protected double area;
     protected BigDecimal valorComercial;
     protected int estrato;
-    protected TipoInmmuebleEnum tipo;
+    protected TipoInmmuebleEnum TIPO;
 
     public String getCodigoNacional() {
         return codigoNacional;
@@ -41,8 +41,8 @@ public abstract class Inmueble {
         return estrato;
     }
 
-    public TipoInmmuebleEnum getTipo() {
-        return tipo;
+    public TipoInmmuebleEnum getTIPO() {
+        return TIPO;
     }
 
     @Override
@@ -72,7 +72,7 @@ public abstract class Inmueble {
 
     @Override
     public String toString() {
-        return "Inmueble{" + "codigoNacional=" + codigoNacional + ", direccion=" + direccion + ", area=" + area + ", valorComercial=" + valorComercial + ", estrato=" + estrato + ", tipo=" + tipo + '}';
+        return "Inmueble{" + "codigoNacional=" + codigoNacional + ", direccion=" + direccion + ", area=" + area + ", valorComercial=" + valorComercial + ", estrato=" + estrato + ", tipo=" + TIPO + '}';
     }
 
     public abstract BigDecimal calcularImpuesto();

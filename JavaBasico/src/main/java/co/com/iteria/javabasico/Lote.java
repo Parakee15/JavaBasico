@@ -18,7 +18,8 @@ public class Lote extends Inmueble {
         this.direccion = dir;
         this.area = area;
         this.valorComercial = valor;
-        this.estrato = estrato;
+        this.estrato = estrato;        
+        this.TIPO = TipoInmmuebleEnum.LOTE;
     }
 
     @Override

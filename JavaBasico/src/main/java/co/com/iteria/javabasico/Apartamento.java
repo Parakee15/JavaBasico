@@ -19,6 +19,7 @@ public class Apartamento extends Inmueble {
         this.area = area;
         this.valorComercial = valor;
         this.estrato = estrato;
+        this.TIPO = TipoInmmuebleEnum.APTO;
     }
 
     @Override

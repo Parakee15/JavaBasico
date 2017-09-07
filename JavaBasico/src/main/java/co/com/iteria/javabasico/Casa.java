@@ -19,6 +19,7 @@ public class Casa extends Inmueble {
         this.area = area;
         this.valorComercial = valor;
         this.estrato = estrato;
+        this.TIPO = TipoInmmuebleEnum.CASA;
     }
 
     @Override
