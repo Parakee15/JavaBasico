@@ -229,7 +229,7 @@ public class Gobierno {
     }
 
     public void crearInmueble(Ciudadano ciudadano, Inmueble inmueble) {
-        String sql = "INSERT INTO inmueble values (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO inmuebles values (?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStmt = connection.prepareStatement(sql);) {
             //pasamos los parametros  para el preparedStmt
             preparedStmt.setString(1, inmueble.getCodigoNacional());
