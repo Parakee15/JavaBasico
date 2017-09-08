@@ -32,6 +32,11 @@ public class Ciudadano {
         return apellidos;
     }
 
+    public List<Inmueble> getInmuebles() {
+        return new ArrayList<>(inmuebles);
+    }
+    
+
     @Override
     public int hashCode() {
         int hash = 3;
