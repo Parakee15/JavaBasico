@@ -228,12 +228,12 @@ public class Gobierno {
     }
 
     public void crearInmueble(Ciudadano ciudadano, Inmueble inmueble) {
-        System.out.println(inmueble.getTIPO().name());
+        
         String sql = "INSERT INTO inmueble values (?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStmt = connection.prepareStatement(sql);) {
             //pasamos los parametros  para el preparedStmt
             preparedStmt.setString(1, inmueble.getCodigoNacional());
-            //preparedStmt.setString(2, inmueble.get);
+            preparedStmt.setString(2, ciudadano.getId());
             preparedStmt.setString(3, inmueble.getTIPO().name());
             preparedStmt.setString(4, inmueble.getDireccion());
             preparedStmt.setDouble(5, inmueble.getArea());
