@@ -58,7 +58,7 @@ public class Gobierno {
                 /*Comprobamos que sea un numero y no una letra encaso de que sea una letra 
                 no cambia el valor de la variable dejandola en 0 */
                 try {
-                    opcion = Integer.parseInt(scaner.next());
+                    opcion = Integer.parseInt(scaner.nextLine());
                 } catch (NumberFormatException e) {
                 }
                 System.out.println("------------------------------");
@@ -81,8 +81,9 @@ public class Gobierno {
                         break;
                     case 3:
                         gobierno.leerInfo();
+                        System.out.println("Digite el numero del ciudadano");
                         try {
-                            int numeroIndex = Integer.parseInt(scaner.next());
+                            int numeroIndex = scaner.nextInt();
                             //Condidicon para ver si el numero ingresado se encuentra dentro del rango del lisatdo 
                             if (numeroIndex <= gobierno.getListCiudadanos().size() && numeroIndex > 0) {
 
@@ -93,16 +94,16 @@ public class Gobierno {
                                     //verificacmos que el tipo de inmueble este dentro del rango  1 - 3
                                     if (tipo > 0 && tipo <= 3) {
                                         System.out.println("Digite Codigo Nacional: ");
-                                        String codigo_nacional = scaner.nextLine();
+                                        String codigo_nacional = scaner.next();
                                         System.out.println("Digite Direccion: ");
-                                        String direccion = scaner.nextLine();
-                                        System.out.println("Digite Are: ");
-                                        String area = scaner.nextLine();
+                                        String direccion = scaner.next();
+                                        System.out.println("Digite Area: ");
+                                        String area = scaner.next();
                                         System.out.println("Digite Valor Comercial: ");
-                                        String valor_comercial = scaner.nextLine();
+                                        String valor_comercial = scaner.next();
                                         System.out.println("Digite Estrato: ");
                                         String estrato;
-                                        estrato = scaner.nextLine();
+                                        estrato = scaner.next();
                                         Inmueble inmueble = null;
 
                                         //Creamos el tipo de inmueble seleccionado
@@ -118,7 +119,7 @@ public class Gobierno {
                                                 break;
                                         }
                                         //enviamos el id del ciudadano seleccionado y el tipo de inmueble creado
-                                        gobierno.crearInmueble(gobierno.getListCiudadanos().get(numeroIndex), inmueble);
+                                        gobierno.crearInmueble(gobierno.getListCiudadanos().get((numeroIndex - 1)), inmueble);
 
                                     } else {
                                         System.err.println("Tipo de inmueble no valido");
@@ -129,7 +130,7 @@ public class Gobierno {
 
                             } else {
                                 //Si el numero ingresado esta fuera del rango arroja un excepcion
-                                throw new IllegalArgumentException("El numero ingresado se encuentra fuera del rango, intente nuevamente");
+                                System.out.println("El numero ingresado se encuentra fuera del rango, intente nuevamente");
                             }
                         } catch (NumberFormatException e) {
 
@@ -166,7 +167,7 @@ public class Gobierno {
                 ResultSet rs = st.executeQuery(sql);) {
             String outCiudadano = "%d. Id = %d,\t Nombres = %s,\t Apellido = %s\n";
             String outInmueble = "Codigo Nacional = %d,\t Tipo = %s,\t Direccion = %s\t Area = %f\t Valor comercial = %f\t Estrato = %d\n";
-            int cont = 0;
+            int cont = 1;
             while (rs.next()) {
                 List<Inmueble> listInmueble = new ArrayList<>();
                 //Muestra al ciudadano en pantalla                
@@ -204,7 +205,7 @@ public class Gobierno {
                     }
                 }
                 //agragamos el ciudadano al list de ciudadanos
-                listCiudadanos.add(cont, new Ciudadano("" + rs.getInt(1), rs.getString(2), rs.getString(3), listInmueble));
+                listCiudadanos.add(cont - 1, new Ciudadano("" + rs.getInt(1), rs.getString(2), rs.getString(3), listInmueble));
                 cont++;
                 System.out.println("\n-----------------------------------------------------------------------");
             }
@@ -228,7 +229,6 @@ public class Gobierno {
     }
 
     public void crearInmueble(Ciudadano ciudadano, Inmueble inmueble) {
-        
         String sql = "INSERT INTO inmueble values (?,?,?,?,?,?,?)";
         try (PreparedStatement preparedStmt = connection.prepareStatement(sql);) {
             //pasamos los parametros  para el preparedStmt
