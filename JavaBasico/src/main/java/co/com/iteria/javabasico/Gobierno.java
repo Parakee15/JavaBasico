@@ -84,12 +84,51 @@ public class Gobierno {
                         try {
                             int numero = Integer.parseInt(scaner.next());
                             //Condidicon para ver si el numero ingresado se encuentra dentro del rango del lisatdo 
-                            if (numero <= gobierno.getListCiudadanos().size() && numero < 0) {
-
-                            } else {
+                            //if (numero <= gobierno.getListCiudadanos().size() && numero < 0) {
+                                
+                                try {
+                                        System.out.println("Que tipo de inmueble desea crear? \n 1. Casa\n 2. Apartamento\n 3. Lote");                                                                        
+                                        int tipo = Integer.parseInt(scaner.next());
+                                        
+                                        System.out.println("Digite Codigo Nacional: ");
+                                        String codigo_nacional = scaner.nextLine();                                                                
+                                        System.out.println("Digite Direccion: ");
+                                        String direccion = scaner.nextLine();
+                                        System.out.println("Digite Are: ");
+                                        String area = scaner.nextLine();
+                                        System.out.println("Digite Valor Comercial: ");
+                                        String valor_comercial = scaner.nextLine();
+                                        System.out.println("Digite Estrato: ");
+                                        String estrato;
+                                        estrato = scaner.nextLine();                               
+                                        
+                                        switch (tipo){
+                                        case 1:                                                
+                                                Inmueble casa = new Casa(codigo_nacional, direccion, Double.parseDouble(area) , BigDecimal.valueOf(Double.parseDouble(valor_comercial)) , Integer.parseInt(estrato));
+                                                gobierno.crearInmueble(null, casa);
+                                                break;
+                                        case 2:
+                                                Inmueble apartamento = new Apartamento(codigo_nacional, direccion, Double.parseDouble(area) , BigDecimal.valueOf(Double.parseDouble(valor_comercial)) , Integer.parseInt(estrato));
+                                                gobierno.crearInmueble(null, apartamento);
+                                            break;
+                                        case 3:
+                                                Inmueble lote = new Lote(codigo_nacional, direccion, Double.parseDouble(area) , BigDecimal.valueOf(Double.parseDouble(valor_comercial)) , Integer.parseInt(estrato));
+                                                gobierno.crearInmueble(null, lote);
+                                            break;
+                                        default:
+                                            System.out.println("Tipo de inmueble seleccionado, no es valido");
+                                            break;
+                                        }
+                                        
+                                    } catch (NumberFormatException e) {
+                                    }
+                                
+                               
+                                
+                            //} else {
                                 //Si el numero ingresado esta fuera del rango arroja un excepcion
-                                throw new IllegalArgumentException("El numero ingresado se encuentra fuera del rango, intente nuevamente");
-                            }
+                             //   throw new IllegalArgumentException("El numero ingresado se encuentra fuera del rango, intente nuevamente");
+                            //}
                         } catch (NumberFormatException e) {
 
                         }
@@ -186,6 +225,22 @@ public class Gobierno {
     }
 
     public void crearInmueble(Ciudadano ciudadano, Inmueble inmueble) {
+        System.out.println(inmueble.getTIPO().name());
+        String sql = "INSERT INTO inmueble values (?,?,?,?,?,?,?)";
+        try (PreparedStatement preparedStmt = connection.prepareStatement(sql);) {
+            //pasamos los parametros  para el preparedStmt
+            preparedStmt.setString(1, inmueble.getCodigoNacional());
+            //preparedStmt.setString(2, inmueble.get);
+            preparedStmt.setString(3, inmueble.getTIPO().name());
+            preparedStmt.setString(4, inmueble.getDireccion());
+            preparedStmt.setDouble(5, inmueble.getArea());
+            preparedStmt.setBigDecimal(6, inmueble.getValorComercial());
+            preparedStmt.setInt(7, inmueble.getEstrato());
+            preparedStmt.execute();
+            System.out.println("Inmueble guardado correctamente!");
+        } catch (SQLException ex) {
+            System.err.println("Ocurrio un error al guardar al inmueble, intente nuevamente");
+        }
 
     }
 
