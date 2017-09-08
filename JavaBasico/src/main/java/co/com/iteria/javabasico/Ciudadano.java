@@ -15,10 +15,10 @@ import java.util.Objects;
  */
 public class Ciudadano {
 
-    private String id;
-    private String nombres;
-    private String apellidos;
-    private List<Inmueble> inmuebles;
+    private final String id;
+    private final String nombres;
+    private final String apellidos;
+    private final List<Inmueble> inmuebles;
 
     public String getId() {
         return id;

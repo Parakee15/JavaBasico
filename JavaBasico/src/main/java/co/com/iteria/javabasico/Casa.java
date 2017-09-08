@@ -22,10 +22,6 @@ public class Casa extends Inmueble {
         this.TIPO = TipoInmmuebleEnum.CASA;
     }
 
-    Casa() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     @Override
     public BigDecimal calcularImpuesto() {
         return valorComercial.multiply(BigDecimal.valueOf(area)).multiply(BigDecimal.valueOf(0, 9));
