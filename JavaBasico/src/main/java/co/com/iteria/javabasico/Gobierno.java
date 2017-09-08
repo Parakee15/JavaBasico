@@ -58,7 +58,7 @@ public class Gobierno {
                 /*Comprobamos que sea un numero y no una letra encaso de que sea una letra 
                 no cambia el valor de la variable dejandola en 0 */
                 try {
-                    opcion = Integer.parseInt(scaner.nextLine());
+                    opcion = Integer.parseInt(scaner.next());
                 } catch (NumberFormatException e) {
                 }
                 System.out.println("------------------------------");
@@ -69,11 +69,11 @@ public class Gobierno {
                         break;
                     case 2:
                         System.out.println("Digite Id: ");
-                        String id = scaner.nextLine();
+                        String id = scaner.next();
                         System.out.println("Digite nombres: ");
-                        String nombres = scaner.nextLine();
+                        String nombres = scaner.next();
                         System.out.println("Digite Apellidos: ");
-                        String apellidos = scaner.nextLine();
+                        String apellidos = scaner.next();
                         //Crear objeto de ciudadano
                         Ciudadano ciudadano = new Ciudadano(id, nombres, apellidos, new ArrayList<>());
                         //Se envia el objeto creado
@@ -102,8 +102,7 @@ public class Gobierno {
                                         System.out.println("Digite Valor Comercial: ");
                                         String valor_comercial = scaner.next();
                                         System.out.println("Digite Estrato: ");
-                                        String estrato;
-                                        estrato = scaner.next();
+                                        String estrato = scaner.next();
                                         Inmueble inmueble = null;
 
                                         //Creamos el tipo de inmueble seleccionado
@@ -126,6 +125,7 @@ public class Gobierno {
                                     }
 
                                 } catch (NumberFormatException e) {
+                                    System.err.println("Entro al catch" + e);
                                 }
 
                             } else {
