@@ -24,7 +24,7 @@ public class Apartamento extends Inmueble {
 
     @Override
     public BigDecimal calcularImpuesto() {
-        return valorComercial.multiply(BigDecimal.valueOf(area)).multiply(BigDecimal.valueOf(0, 8));
+        return valorComercial.multiply(BigDecimal.valueOf(area)).multiply(BigDecimal.valueOf(Double.valueOf("0.8")));
     }
 
 }

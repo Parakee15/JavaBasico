@@ -1,7 +1,7 @@
 package co.com.iteria.javabasico;
 
 import java.math.BigDecimal;
-import java.sql.Array;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -155,11 +155,11 @@ public class Gobierno {
                             int numeroIndex = scaner.nextInt();
                             //Condidicon para ver si el numero ingresado se encuentra dentro del rango del lisatdo 
                             if (numeroIndex <= gobierno.getListCiudadanos().size() && numeroIndex > 0) {
-                                gobierno.reporteInmueblesPorCiudadano(gobierno.getListCiudadanos().get(numeroIndex - 1));
+                                //Imprimimos el string que nos devuelve el metodo reporteInmueblesPorCiudadano 
+                                System.out.println(gobierno.reporteInmueblesPorCiudadano(gobierno.getListCiudadanos().get(numeroIndex - 1)));
                             } else {
                                 System.out.println("Numero esta por fuera del rango");
                             }
-
                         } catch (NumberFormatException e) {
                             System.out.println("Valor ingresado no es numerico");
                         }
@@ -267,6 +267,7 @@ public class Gobierno {
             preparedStmt.setDouble(5, inmueble.getArea());
             preparedStmt.setBigDecimal(6, inmueble.getValorComercial());
             preparedStmt.setInt(7, inmueble.getEstrato());
+            //ejecutamos la consulta
             preparedStmt.execute();
             System.out.println("Inmueble guardado correctamente!");
         } catch (SQLException ex) {
@@ -276,10 +277,17 @@ public class Gobierno {
     }
 
     public String reporteInmueblesPorCiudadano(Ciudadano ciudadano) {
-        System.err.println("lista antes" + Arrays.toString(ciudadano.getInmuebles().toArray()));
-      List<Inmueble> nuevo = ciudadano.getInmuebles().stream().sorted((a, b) -> a.getEstrato() - b.getEstrato()).collect(Collectors.toList());
-        System.err.println("lista despues" + Arrays.toString(nuevo.toArray()));
-        return null;
+        String cadena = "El ciudadano no posee inmuebles";
+        if (!ciudadano.getInmuebles().isEmpty()) {
+            cadena = ciudadano.getInmuebles().stream().
+                    sorted(//Ordenamos los inmuebles por medio del estrato y ejecutamos el metodo calcularImpuesto
+                            (a, b) -> a.getEstrato() - b.getEstrato()).
+                    map(//creamos una cadena con los valores de los inmuebles
+                            (Inmueble a) -> ciudadano.getId() + "," + a.getCodigoNacional() + "," + a.getArea() + "," + a.getEstrato() + "," + a.getValorComercial() + "," + a.calcularImpuesto().stripTrailingZeros().toPlainString()).
+                    collect( //concatenamos los String que genero el map
+                            Collectors.joining("\n------------------------------------\n"));
+        }
+        return cadena;
     }
 
     /*Metodo para crear la conexion

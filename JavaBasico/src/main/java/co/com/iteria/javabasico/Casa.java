@@ -12,7 +12,7 @@ import java.math.BigDecimal;
  * @author ITERIA
  */
 public class Casa extends Inmueble {
-
+    
     public Casa(String codigoNal, String dir, double area, BigDecimal valor, int estrato) {
         this.codigoNacional = codigoNal;
         this.direccion = dir;
@@ -21,10 +21,10 @@ public class Casa extends Inmueble {
         this.estrato = estrato;
         this.TIPO = TipoInmmuebleEnum.CASA;
     }
-
+    
     @Override
     public BigDecimal calcularImpuesto() {
-        return valorComercial.multiply(BigDecimal.valueOf(area)).multiply(BigDecimal.valueOf(0, 9));
+        return valorComercial.multiply(BigDecimal.valueOf(area)).multiply(BigDecimal.valueOf(Double.valueOf("0.9")));
     }
-
+    
 }
